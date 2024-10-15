@@ -1,3 +1,4 @@
+import { UsersMaterialModule } from './../../shared/materials/users-mat.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -17,6 +18,7 @@ import { MyDisciplinesComponent } from './my-disciplines/my-disciplines.componen
   ],
   imports: [
     CommonModule,
+    UsersMaterialModule,
     UsersRoutingModule
   ]
 })
