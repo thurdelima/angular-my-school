@@ -7,6 +7,7 @@ import { UsersComponent } from './users.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { MyConquestsComponent } from './my-conquests/my-conquests.component';
 import { MyDisciplinesComponent } from './my-disciplines/my-disciplines.component';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { MyDisciplinesComponent } from './my-disciplines/my-disciplines.componen
   imports: [
     CommonModule,
     UsersMaterialModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    SharedModule
   ]
 })
 export class UsersModule { }
