@@ -8,12 +8,15 @@
     [fixedInViewport]="true"
     [mode]="sideNavMode">
 
-    <mat-toolbar color="primary">
-        Smart Examples
+    <mat-toolbar >
+        <img class="avatar mat-elevation-z4" src="https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png" alt="avatar">
+        <a routerLink="/users" class="name">Arthur Lima</a>
+        <p class="designation"></p>
     </mat-toolbar>
 
+    <mat-divider></mat-divider>
     <mat-nav-list>
-      <a mat-list-item routerLink="users">Users</a>
+
       <a *ngFor="let item of items_menu" mat-list-item [routerLink]="item.link" routerLinkActive="active">
         <mat-icon fontSet="fa" [fontIcon]="item.icon"></mat-icon>
         <span>{{item.label}}</span>
