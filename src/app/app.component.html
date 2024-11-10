@@ -43,9 +43,18 @@
     [class.mat-elevation-z8]="applyShadow"
 
     >
-      <button mat-icon-button class="example-icon" (click)="sidenav.toggle()"
-        aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
+      <button
+      matTooltip="{{sidenav.opened ? 'Fechar menu' : 'Abrir menu'}}"
+      matTooltipPosition="right"
+      mat-icon-button
+      class="example-icon"
+      (click)="sidenav.toggle()"
+        aria-label="Example icon-button with menu icon"
+        >
+        <mat-icon>
+          {{sidenav.opened ? 'close' : 'menu'}}
+
+        </mat-icon>
       </button>
       <span *ngIf="popText">My App</span>
       <span class="example-spacer"></span>

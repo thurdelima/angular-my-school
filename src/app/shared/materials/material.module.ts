@@ -31,6 +31,7 @@ import {
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   exports: [
@@ -40,6 +41,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatIconModule,
     MatListModule,
     MatSidenavModule,
+    MatTooltipModule,
     //MatInputModule,
     FormsModule,
     // MatProgressBarModule,
