@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { fromEvent, map } from 'rxjs';
 import { MenuItem } from './shared/models/menuitem';
 import { menuItems } from './shared/models/menu';
@@ -22,9 +22,12 @@ export class AppComponent {
   public popText = false;
   public applyShadow = false;
   public items_menu: MenuItem[] = menuItems;
+  private breakPointObserver: BreakpointObserver
 
   //@ViewChild(MatSidenav) sidenav!: MatSidenav;
-  constructor(private breakPointObserver: BreakpointObserver) {}
+  constructor() {
+    this.breakPointObserver = inject(BreakpointObserver);
+  }
 
   ngOnInit(): void {
     const content = document.getElementsByClassName(SCROLL_CONTAINER)[0];
