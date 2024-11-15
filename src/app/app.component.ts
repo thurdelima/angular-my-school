@@ -1,8 +1,9 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, inject } from '@angular/core';
-import { fromEvent, map } from 'rxjs';
+import { filter, fromEvent, map } from 'rxjs';
 import { MenuItem } from './shared/models/menuitem';
 import { menuItems } from './shared/models/menu';
+import { NavigationEnd, Router } from '@angular/router';
 
 export const SCROLL_CONTAINER = 'mat-sidenav-content';
 export const TEXT_LIMIT = 50;
@@ -22,11 +23,14 @@ export class AppComponent {
   public popText = false;
   public applyShadow = false;
   public items_menu: MenuItem[] = menuItems;
-  private breakPointObserver: BreakpointObserver
+  private breakPointObserver: BreakpointObserver;
+  private route: Router;
+  public menuName: string = '';
 
   //@ViewChild(MatSidenav) sidenav!: MatSidenav;
   constructor() {
     this.breakPointObserver = inject(BreakpointObserver);
+    this.route = inject(Router);
   }
 
   ngOnInit(): void {
@@ -38,6 +42,19 @@ export class AppComponent {
     )
     .subscribe({
       next: (value: number) =>  this.determineHeader(value)
+    })
+
+    this.route.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(event => event as NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      let moduleName = event.url.split('/')[1];
+
+      this.menuName = this.items_menu.filter(
+        (item: MenuItem) => item.link ==  `/${moduleName}`
+      )[0].label;
+
+
     })
   }
 
