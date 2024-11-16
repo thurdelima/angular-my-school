@@ -3,6 +3,8 @@ import { ToolbarTitleComponent } from './components/toolbar-title/toolbar-title.
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ToolbarMenuComponent } from './components/toolbar-menu/toolbar-menu.component';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -11,13 +13,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   imports: [
     MatToolbarModule,
     MatIconModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    CommonModule
   ],
   declarations: [
-    ToolbarTitleComponent
+    ToolbarTitleComponent,
+    ToolbarMenuComponent
   ],
   exports: [
-    ToolbarTitleComponent
+    ToolbarTitleComponent,
+    ToolbarMenuComponent
   ]
 })
 export class SharedModule { }
