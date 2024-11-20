@@ -6,6 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -32,6 +33,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   exports: [
@@ -44,6 +46,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule,
     //MatInputModule,
     FormsModule,
+    MatMenuModule
     // MatProgressBarModule,
     // MatProgressSpinnerModule,
     // MatTabsModule,
@@ -57,6 +60,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
   declarations: [],
   providers: [
+    provideAnimationsAsync()
     // {
     //   provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
     //   useValue: { appearance: 'outline', floatLabel: 'always' },
