@@ -1,13 +1,15 @@
 <mat-toolbar
   class="toolbar-menu"
-  [class.mat-elevation-z4]="shadow"
+  [class.mat-elevation-z8]="shadow"
 
   >
 
       <mat-toolbar-row>
         <a href="/dashboard" mat-button class="logo">
           <mat-icon fontSet="fa" fontIcon="fa-school"></mat-icon>
-          <span *ngIf="popText">{{menuTitle}}</span>
+          <!-- <span class="title" *ngIf="popText">{{menuTitle}}</span> -->
+          <span class="title" *ngIf="!popText">Project School </span>
+          <span class="title" *ngIf="popText">Project School - {{menuTitle}}</span>
         </a>
 
         <div class="content-center">
