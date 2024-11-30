@@ -12,14 +12,13 @@ import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
-
+    ToolbarMenuComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    SharedModule
   ],
   providers: [
     provideAnimationsAsync()

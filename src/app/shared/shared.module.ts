@@ -8,6 +8,9 @@ import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MaterialModule } from './materials/material.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from '@app/app-routing.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 
@@ -15,16 +18,20 @@ import { MaterialModule } from './materials/material.module';
 @NgModule({
   imports: [
     MaterialModule,
+
     FlexLayoutModule,
     CommonModule
   ],
+  providers: [
+    provideAnimationsAsync()
+  ],
   declarations: [
     ToolbarTitleComponent,
-    ToolbarMenuComponent
+
   ],
   exports: [
     ToolbarTitleComponent,
-    ToolbarMenuComponent
+
   ]
 })
 export class SharedModule { }
