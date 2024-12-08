@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CoursesComponent } from './courses.component';
+import { CourseListComponent } from './course-list/course-list.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,12 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'myCourses'
+        redirectTo: 'list'
+
+      },
+      {
+        path: 'list',
+        component: CourseListComponent
 
       },
 

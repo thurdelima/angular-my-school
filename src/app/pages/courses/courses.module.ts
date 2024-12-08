@@ -8,11 +8,13 @@ import { SharedModule } from '../../shared/shared.module';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CoursesMaterialModule } from '@app/shared/materials/courses-mat.module';
 import { CoursesComponent } from './courses.component';
+import { CourseListComponent } from './course-list/course-list.component';
 
 
 @NgModule({
   declarations: [
-    CoursesComponent
+    CoursesComponent,
+    CourseListComponent
   ],
   imports: [
     CommonModule,

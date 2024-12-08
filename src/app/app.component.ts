@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { filter, fromEvent, map } from 'rxjs';
 import { MenuItem } from './shared/models/menuitem';
 import { menuItems } from './shared/models/menu';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 export const SCROLL_CONTAINER = 'mat-sidenav-content';
 export const TEXT_LIMIT = 50;
@@ -23,15 +23,14 @@ export class AppComponent {
   public popText = false;
   public applyShadow = false;
   public items_menu: MenuItem[] = menuItems;
-  private breakPointObserver: BreakpointObserver;
-  private route: Router;
+
   public menuName: string = '';
+  private breakPointObserver = inject(BreakpointObserver);
+  private route = inject(Router);
+  private activatedRoute = inject(ActivatedRoute)
 
   //@ViewChild(MatSidenav) sidenav!: MatSidenav;
-  constructor() {
-    this.breakPointObserver = inject(BreakpointObserver);
-    this.route = inject(Router);
-  }
+
 
   ngOnInit(): void {
     const content = document.getElementsByClassName(SCROLL_CONTAINER)[0];
@@ -46,13 +45,9 @@ export class AppComponent {
 
     this.route.events.pipe(
       filter(event => event instanceof NavigationEnd),
-      map(event => event as NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      let moduleName = event.url.split('/')[1];
+    ).subscribe(() => {
 
-      this.menuName = this.items_menu.filter(
-        (item: MenuItem) => item.link ==  `/${moduleName}`
-      )[0].label;
+      this.menuName = this.activatedRoute.firstChild?.snapshot.routeConfig?.path ?? '';
 
 
     })
