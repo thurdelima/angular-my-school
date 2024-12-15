@@ -31,6 +31,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   ],
   exports: [
     ToolbarTitleComponent,
+    FlexLayoutModule
 
   ]
 })
