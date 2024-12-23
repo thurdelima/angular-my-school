@@ -6,6 +6,7 @@ export interface Course {
   year: number;
   professor: string;
   description: string;
+  image: string;
 }
 
 
@@ -25,3 +26,21 @@ export enum Category {
   Filosofia = 'Filosofia',
   Saude = 'Saúde',
 }
+
+
+export const CategoryArray = [
+  { key: 'Tecnologia', value: 'Tecnologia' },
+  { key: 'Arte', value: 'Arte' },
+  { key: 'Culinaria', value: 'Culinária' },
+  { key: 'Financas', value: 'Finanças' },
+  { key: 'Psicologia', value: 'Psicologia' },
+  { key: 'Marketing', value: 'Marketing' },
+  { key: 'Fotografia', value: 'Fotografia' },
+  { key: 'Escrita', value: 'Escrita' },
+  { key: 'Musica', value: 'Música' },
+  { key: 'CienciasAmbientais', value: 'Ciências Ambientais' },
+  { key: 'Moda', value: 'Moda' },
+  { key: 'Comunicação', value: 'Comunicação' },
+  { key: 'Filosofia', value: 'Filosofia' },
+  { key: 'Saude', value: 'Saúde' },
+];

@@ -1,26 +1,67 @@
 
+<form [formGroup]="form">
+
+  <div fxFxLayout="row wrap">
+      <!-- <mat-form-field>
+        <mat-label>Categoria</mat-label>
+        <mat-select formControlName="category">
+          <mat-option>Selecione</mat-option>
+          @for (item of categoryValue; track item) {
+            <mat-option [value]="item.value">{{item.value}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field> -->
+      <!-- <mat-form-field >
+        <mat-label>Categoria</mat-label>
+        <mat-select  #categorySelect formControlName="category"
+        >
+          <mat-option >Selecione</mat-option>
+          @for (item of categoryValue; track item) {
+            <mat-option [value]="item">{{item}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field> -->
+
+      <mat-form-field>
+        <mat-label>Categoria</mat-label>
+        <select matNativeControl formControlName="category" required>
+          <option value="">Selecione</option>
+          @for (item of categoryValue; track item) {
+            <option [value]="item.value">{{item.value}}</option>
+          }
+        </select>
+      </mat-form-field>
+
+
+
+
+  </div>
+</form>
+
+
 <div fxLayout="row wrap" fxLayoutGap="16px grid">
 
-  <div fxFlex="20" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25">
+  <div fxFlex="20" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" *ngFor="let course of courseList">
 
     <mat-card class="mat-elevation-z4">
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      <img mat-card-image src="{{course.image}}" alt="Photo of a Shiba Inu">
      <div class="space-titles">
        <mat-card-subtitle>
-        Tecnologia
+        {{course.category}}
         <div fxFlex></div>
         <button mat-mini-fab style="margin-top:-32px" class="mat-elevation-z2" >
          <mat-icon>favorite</mat-icon>
         </button>
       </mat-card-subtitle>
-       <mat-card-title>Desenvolvimento Web Avançado com React</mat-card-title>
+       <mat-card-title>{{course.name}}</mat-card-title>
 
      </div>
 
       <mat-card-content>
-        Aprenda React de forma avançada. (Tecnologia)
+        {{course.description}}
       </mat-card-content>
       <mat-divider [inset]="true"></mat-divider>
+      <div fxFlex></div>
       <mat-card-actions>
         <button mat-button>INSCREVER</button>
         <div fxFlex></div>
@@ -31,35 +72,7 @@
     </mat-card>
   </div>
 
-  <div fxFlex="20" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25">
 
-    <mat-card class="mat-elevation-z4">
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-     <div class="space-titles">
-       <mat-card-subtitle>
-        Tecnologia
-        <div fxFlex></div>
-        <button mat-mini-fab style="margin-top:-32px" class="mat-elevation-z2" >
-         <mat-icon>favorite</mat-icon>
-        </button>
-      </mat-card-subtitle>
-       <mat-card-title>Desenvolvimento Web Avançado com React</mat-card-title>
-
-     </div>
-
-      <mat-card-content>
-        Aprenda React de forma avançada. (Tecnologia)
-      </mat-card-content>
-      <mat-divider [inset]="true"></mat-divider>
-      <mat-card-actions>
-        <button mat-button>INSCREVER</button>
-        <div fxFlex></div>
-        <button mat-icon-button>
-          <mat-icon>share</mat-icon>
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
 
 
 </div>

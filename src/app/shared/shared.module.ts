@@ -11,6 +11,7 @@ import { MaterialModule } from './materials/material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -18,9 +19,10 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 @NgModule({
   imports: [
     MaterialModule,
-
     FlexLayoutModule,
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideAnimationsAsync()
@@ -31,7 +33,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   ],
   exports: [
     ToolbarTitleComponent,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule
 
   ]
 })

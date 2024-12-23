@@ -9,6 +9,8 @@ import { CoursesRoutingModule } from './courses-routing.module';
 import { CoursesMaterialModule } from '@app/shared/materials/courses-mat.module';
 import { CoursesComponent } from './courses.component';
 import { CourseListComponent } from './course-list/course-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -21,6 +23,11 @@ import { CourseListComponent } from './course-list/course-list.component';
     CoursesRoutingModule,
     CoursesMaterialModule,
     SharedModule,
+
+
+
+
+
   ]
 })
 export class CoursesModule { }
