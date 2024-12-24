@@ -47,14 +47,15 @@ export class CourseListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.validation();
+    this.buildForm();
     this.getCourses();
     this.listenToCategoryChanges();
   }
 
-  private validation(): void {
+  private buildForm(): void {
     this.form = this.fb.group({
       category: [''],
+      search: ['']
       //categorySelected: null,
     });
 
@@ -81,7 +82,11 @@ export class CourseListComponent implements OnInit {
     });
   }
 
-  onCategoryChange(event: any, categorySelect: any): void {
+  public doSearch(): void {
+    console.log('ok')
+  }
+
+  public onCategoryChange(event: any, categorySelect: any): void {
     const selectedCategory = event.value;
     this.form.get('categorySelected')?.setValue(selectedCategory);
     console.log('Selected category:', selectedCategory);
