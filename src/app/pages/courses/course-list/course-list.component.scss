@@ -21,6 +21,15 @@
   }
 }
 
+::ng-deep .mat-paginator-container {
+
+  padding: 0px 0px !important;
+}
+
+::ng-deep .mat-paginator-range-label {
+  padding: 0px 0px !important;
+}
+
 
 mat-card {
   margin-bottom: 4px;
