@@ -1,5 +1,6 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 import { MatSelect } from '@angular/material/select';
 import { CoursesService } from '@app/services/courses.service';
 import { Category, Course } from '@app/shared/models/course';
@@ -40,6 +41,12 @@ export class CourseListComponent implements OnInit {
   //public categoryValue = Object.values(Category)
   public selectedValue: string = '';
 
+
+  public totalCount: number = 0;
+  public currentPage: number = 1;
+  public pageSize: number = 5;
+
+
   public form!: FormGroup;
   //@ViewChild('categorySelect') categorySelect!: MatSelect;
   @ViewChild(MatSelect) categorySelect!: MatSelect;
@@ -49,7 +56,11 @@ export class CourseListComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
     this.getCourses();
-    this.listenToCategoryChanges();
+    //this.listenToCategoryChanges();
+  }
+
+  get f(): any {
+    return this.form.controls;
   }
 
   private buildForm(): void {
@@ -124,6 +135,18 @@ export class CourseListComponent implements OnInit {
 
       this.courseList = this.courseList.filter((course) => course.category === category);
     }
+  }
+
+
+  public handlePageEvent(e: PageEvent): void {
+    // this.currentPage = (e.pageIndex + 1);
+    // this.pageSize = e.pageSize;
+    // this.getCourses(
+    //   this.currentPage,
+    //   this.pageSize,
+    //   this.f.category.value ?? '',
+    //   this.f.search.value ?? ''
+    // );
   }
 
 }

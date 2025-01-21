@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Course } from '@app/shared/models/course';
 
@@ -11,8 +11,16 @@ export class CoursesService {
   baseUrl =  `${environment.apiUrl}courses`;
   private http = inject(HttpClient);
 
-  public get(): Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.baseUrl}`);
+  public get(currentPage: number, pageSize: number, category: string, search: string): Observable<HttpResponse<any>>{
+    let url = `${this.baseUrl }?_page=${currentPage}&_limit=${pageSize}`;
+
+    if(category)
+      url = `${url}&category=${category}`
+
+    if(search)
+      url = `${url}&q=${search}`
+
+    return this.http.get<Course[]>(`${this.baseUrl}`, {observe: 'response'});
   }
 
   public getById(id: number): Observable<Course[]> {
