@@ -1,10 +1,12 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSelect } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CoursesService } from '@app/services/courses.service';
 import { Category, Course } from '@app/shared/models/course';
+import { catchError, debounceTime, EMPTY, Observable, Subject, Subscription, takeUntil, tap } from 'rxjs';
 
 
 
@@ -15,13 +17,19 @@ import { Category, Course } from '@app/shared/models/course';
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss']
 })
-export class CourseListComponent implements OnInit {
+export class CourseListComponent implements OnInit, OnDestroy {
 
 
 
   public courseList: Course[] = [];
   private courseService = inject(CoursesService);
-   private fb = inject(FormBuilder);
+  private fb = inject(FormBuilder);
+  private snackbar = inject(MatSnackBar)
+  public sub!: Subscription;
+  public courseData!: Observable<any>;
+
+
+
 
   public categoryValue  = [
     { id: 1, value: 'Tecnologia' },
@@ -57,13 +65,27 @@ export class CourseListComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
     //this.listenToCategoryChanges();
-    this.form.valueChanges.subscribe((value) => {
+    this.form.valueChanges.pipe(
+      debounceTime(1000)
+    ).subscribe((value) => {
       if(value) {
         this.getCourses(this.currentPage, this.pageSize, this.f.category.value, this.f.search.value)
       }
     })
-    this.getCourses(1, 10, '', '');
+    this.getCourses(1, 5, '', '');
   }
+
+
+  ngOnDestroy(): void {
+    console.log('caiu destroy')
+    this.courseList = [];
+    this.totalCount = 0;
+    if (this.sub) {
+      this.sub.unsubscribe(); // Clean up subscriptions
+    }
+  }
+
+
 
   get f(): any {
     return this.form.controls;
@@ -90,14 +112,25 @@ export class CourseListComponent implements OnInit {
 
 
   public getCourses(currentPage: number, pageSize: number, category: string, search: string): void {
-    this.courseService.get(currentPage, pageSize, category, search).subscribe((response: HttpResponse<any>) => {
-      console.log('response: ', response.headers.get)
-      this.courseList = response.body as Course[];
-      console.log(' this.courseList: ', response);
-      let totalCount = response.headers.get('X-Total-Count');
-      console.log('totalCoount: ', totalCount)
-      this.totalCount = totalCount ? Number(totalCount) : 0;
-    })
+
+    //estrategia pipe async, pra n precisar ficar usando subscribe nas chamadas
+    this.courseData = this.courseService
+    .get(currentPage, pageSize, category, search)
+    .pipe(
+      tap((response: HttpResponse<any>) => {
+        console.log('API Response:', response);
+          this.courseList = response.body as Course[];
+          let totalCount = response.headers.get('X-Total-Count');
+          this.totalCount = totalCount ? Number(totalCount) : 0;
+        }),
+        catchError((err: string) => {
+          this.snackbar.open(err, 'Close', {
+            duration: 5000
+          });
+          return EMPTY;
+        })
+    )
+    // .subscribe();
   }
 
   private listenToCategoryChanges(): void {
@@ -124,23 +157,7 @@ export class CourseListComponent implements OnInit {
     this.categorySelect.close();
   }
 
-  // public onCategoryChange(event: any): void {
-  //   const selectedCategory = event.value;
 
-  //   // Update the selected value
-  //   this.form.get('categorySelected')?.setValue(selectedCategory);
-
-  //   // Filter courses based on the category
-  //   this.filterCoursesByCategory(selectedCategory);
-  // }
-
-
-  // onCategoryChange(event: any): void {
-  //   const selectedCategory = event.value; // Get the selected value
-  //   this.selectedValue = selectedCategory;
-  //   this.form.get('categorySelected')?.setValue(selectedCategory); // Set it to another control
-  //   console.log('Selected category:', selectedCategory);
-  // }
 
 
   private filterCoursesByCategory(category: string): void {

@@ -45,7 +45,7 @@
 </form>
 
 
-<div fxLayout="row wrap" fxLayoutGap="16px grid">
+<div fxLayout="row wrap" fxLayoutGap="16px grid" *ngIf="courseData | async ; else loading">
 
   <div fxFlex="20" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="25" *ngFor="let course of courseList">
 
@@ -77,8 +77,19 @@
       </mat-card-actions>
     </mat-card>
   </div>
+  <div fxFlex="100" *ngIf="!courseList.length">
+    <br>
+    <p>
+      Nenhum curso encontrado para o filtro:
+    </p>
+    <p *ngIf="f.category.value"><b>Categoria:</b> {{f.category.value}}</p>
+    <p *ngIf="f.search.value"><b>Filtro:</b> {{f.search.value}}</p>
+  </div>
 
 
 
 
 </div>
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>
