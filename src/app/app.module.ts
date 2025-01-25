@@ -9,7 +9,7 @@ import { ToolbarMenuComponent } from './shared/components/toolbar-menu/toolbar-m
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
   ],

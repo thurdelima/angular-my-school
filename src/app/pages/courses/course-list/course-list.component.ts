@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
@@ -55,8 +56,13 @@ export class CourseListComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    this.getCourses();
     //this.listenToCategoryChanges();
+    this.form.valueChanges.subscribe((value) => {
+      if(value) {
+        this.getCourses(this.currentPage, this.pageSize, this.f.category.value, this.f.search.value)
+      }
+    })
+    this.getCourses(1, 10, '', '');
   }
 
   get f(): any {
@@ -73,9 +79,24 @@ export class CourseListComponent implements OnInit {
 
   }
 
-  public getCourses(): void {
-    this.courseService.get().subscribe((response: Course[]) => {
-      this.courseList = response;
+  public doSearch(): void {
+    this.getCourses(
+      this.currentPage,
+      this.pageSize,
+      this.f.category.value ?? '',
+      this.f.search.value ?? ''
+    );
+  }
+
+
+  public getCourses(currentPage: number, pageSize: number, category: string, search: string): void {
+    this.courseService.get(currentPage, pageSize, category, search).subscribe((response: HttpResponse<any>) => {
+      console.log('response: ', response.headers.get)
+      this.courseList = response.body as Course[];
+      console.log(' this.courseList: ', response);
+      let totalCount = response.headers.get('X-Total-Count');
+      console.log('totalCoount: ', totalCount)
+      this.totalCount = totalCount ? Number(totalCount) : 0;
     })
   }
 
@@ -93,9 +114,6 @@ export class CourseListComponent implements OnInit {
     });
   }
 
-  public doSearch(): void {
-    console.log('ok')
-  }
 
   public onCategoryChange(event: any, categorySelect: any): void {
     const selectedCategory = event.value;
@@ -130,7 +148,7 @@ export class CourseListComponent implements OnInit {
     console.log(category)
     if (!category) {
 
-      this.getCourses();
+      //this.getCourses();
     } else {
 
       this.courseList = this.courseList.filter((course) => course.category === category);
@@ -139,14 +157,15 @@ export class CourseListComponent implements OnInit {
 
 
   public handlePageEvent(e: PageEvent): void {
-    // this.currentPage = (e.pageIndex + 1);
-    // this.pageSize = e.pageSize;
-    // this.getCourses(
-    //   this.currentPage,
-    //   this.pageSize,
-    //   this.f.category.value ?? '',
-    //   this.f.search.value ?? ''
-    // );
+    console.log(e)
+    this.currentPage = (e.pageIndex + 1);
+    this.pageSize = e.pageSize;
+    this.getCourses(
+      this.currentPage,
+      this.pageSize,
+      this.f.category.value ?? '',
+      this.f.search.value ?? ''
+    );
   }
 
 }
